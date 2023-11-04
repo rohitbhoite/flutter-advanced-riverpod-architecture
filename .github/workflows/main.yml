@@ -44,7 +44,7 @@ jobs:
         run: flutter build appbundle
 
       - name: Create Release
-        uses: ncipollo/release-action@v1.10.0
+        uses: ncipollo/release-action@v1.0.0
         with:
           artifacts: "build/app/outputs/apk/release/*.apk, build/app/outputs/bundle/release/*.aab"
 
