@@ -18,38 +18,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
         with:
           java-version: '12.x'
-      - uses: subosito/flutter-action@v1
+          distribution: 'adopt'
+      - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
       
       - name: Get all Flutter Packages
         run: flutter pub get
 
-      - name: Run Flutter Test
-        run: flutter test --update-goldens
+      - name: Run Flutter Test and check percentage
+        run: flutter test --coverage
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage to codecov
+        run: curl -s https://codecov.io/bash
+        shell: bash
+#      - uses: codecov/codecov-action@v3
+#        env:
+#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Build APK
-        run: flutter build apk --split-per-abi --release
+#      - name: Build APK
+#        run: flutter build apk --split-per-abi --release
+#
+#      - name: Build APP BUNDLE
+#        run: flutter build appbundle
 
-      - name: Build APP BUNDLE
-        run: flutter build appbundle
+#      - name: Create Release
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: "build/app/outputs/apk/release/*.apk, build/app/outputs/bundle/release/*.aab"
 
-      - name: Create Release
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/apk/release/*.apk, build/app/outputs/bundle/release/*.aab"
-
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: release-apk
-          path: build/app/outputs/apk/
+#      - name: Upload a Build Artifact
+#        uses: actions/upload-artifact@v3.1.0
+#        with:
+#          name: release-apk
+#          path: build/app/outputs/apk/
