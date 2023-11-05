@@ -12,7 +12,7 @@ class ActivityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Activity"),
+        title: Text("Activity test"),
       ),
       body: Consumer(
         builder: (context, ref, child) {
