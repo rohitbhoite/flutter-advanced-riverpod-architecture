@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/features/activity/views/pages/activity_page.dart';
 import 'package:movies_app/features/people/views/widgets/popular_people_app_bar.dart';
 import 'package:movies_app/features/people/views/widgets/popular_people_list.dart';
 
@@ -12,6 +13,9 @@ class PopularPeoplePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const PopularPeopleAppBar(),
+        actions: [IconButton(onPressed: (){
+          Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ActivityPage()));
+        }, icon: Icon(Icons.info))],
       ),
       body: const PopularPeopleList(),
     );
